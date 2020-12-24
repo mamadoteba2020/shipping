@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Sequences for moving.moving -->
+        <record id="seq_Moving_No_customs" model="ir.sequence">
+            <field name="name">Moving No</field>
+            <field name="code">moving.moving</field>
+            <field name="prefix">MovingNo#</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

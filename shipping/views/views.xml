@@ -1,0 +1,364 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+
+    <!-- sale.order inherit form view -->
+    <record id="view_id_sale_order_inherit" model="ir.ui.view">
+      <field name="name">sale.order.inherit.view.form</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <!-- Add your xpath here -->
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar"/>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="after">
+               <button name="unloading" states="sale" type="object"
+                        string="Unloading"/>
+            </xpath>
+
+             <xpath expr="//button[@name='action_cancel']" position="after">
+               <button name="done" states="unloading" type="object"
+                         string="Done"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+              <!-- Add your fields here -->
+                <button class="oe_stat_button" name="document_view" type="object" icon="fa-list-ol">
+                    <field string="Documents" name="document_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+              <!-- Add your fields here -->
+                <button class="oe_stat_button" name="moving_view" type="object" icon="fa-list-ol">
+                    <field string="Moving" name="moving_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+              <!-- Add your fields here -->
+                    <field name="typeofcontainers"/>
+                    <field name="os_containers_rel" widget="many2many_tags"/>
+                    <field name="os_vehicle_rel" widget="many2many_tags"/>
+                    <field name="numberofcontainers"/>
+                    <field name="the_total_weight"/>
+                    <field name="number_of_packages"/>
+                    
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <!-- Add your fields here -->
+                    <field name="shippers_name"/>
+                    <field name="recipients_name"/>
+                    <field name="typeofshipment"/>
+                    <field name="moveport"/>
+                    <field name="accessport"/>
+            </xpath>
+
+      </field>
+    </record>
+    <!-- shipping.document form view -->
+   <record id="shipping_document_view_form" model="ir.ui.view">
+      <field name="name">shipping.document.view.form</field>
+      <field name="model">shipping.document</field>
+      <field name="arch" type="xml">
+        <form string="Shipping Documents">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="doc_number"/>
+              <field name="expiry_date"/>
+            </group>
+            <group>
+            <field name="issue_date"/>
+            </group>
+            <group>
+            <field name="doc_attachment_id" widget="many2many_binary" class="oe_inline"/>
+            </group>
+            <notebook>
+                <page string="Description">
+                  <field name="description"/>
+                </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+   </record> 
+
+
+    <!-- shipping.document tree view -->
+    <record id="shipping_document_view_tree" model="ir.ui.view">
+      <field name="name">shipping.document.view.tree</field>
+      <field name="model">shipping.document</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="doc_number"/>
+            <field name="expiry_date"/>
+        </tree>
+      </field>
+    </record> 
+
+    <!-- moving.moving form view -->
+    <record id="moving_moving_view_form" model="ir.ui.view">
+      <field name="name">moving.moving.view.form</field>
+      <field name="model">moving.moving</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="name"/>
+              <field name="moving_number"/>
+              <field name="os_containers_rel_moving" widget="many2many_tags"/>
+              <field name="os_vehicle_rel_moving" widget="many2many_tags"/>
+              <field name="starting_point"/>
+              <field name="end_point"/>
+              <field name="note_moving"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- moving.moving tree view -->
+    <record id="moving_moving_view_tree" model="ir.ui.view">
+      <field name="name">moving.moving.view.tree</field>
+      <field name="model">moving.moving</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="name"/>
+          <field name="moving_number"/>
+        </tree>
+      </field>
+    </record>
+    <!-- model.name inherit form view -->
+    <!-- <record id="view_id" model="ir.ui.view">
+      <field name="name">model.name.inherit.view.form</field>
+      <field name="model">model.name</field>
+      <field name="inherit_id" ref="base_module.view_id"/>
+      <field name="arch" type="xml">
+        
+        
+        
+      </field>
+    </record> -->
+
+
+    <!-- model.name inherit tree view -->
+    <!-- <record id="view_id" model="ir.ui.view">
+      <field name="name">model.name.inherit.view.tree</field>
+      <field name="model">model.name</field>
+      <field name="inherit_id" ref="base_module.view_id"/>
+      <field name="arch" type="xml">
+        
+        
+      </field>
+    </record> -->
+
+    <!-- model.name action window -->
+    <!-- <record id="model_name_action" model="ir.actions.act_window">
+      <field name="name">model.name.action</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">model.name</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_type">form</field>
+     
+      </field>
+    </record> -->
+    <!-- shipment.type form view -->
+    <record id="shipment_type_view_form" model="ir.ui.view">
+      <field name="name">shipment.type.view.form</field>
+      <field name="model">shipment.type</field>
+      <field name="arch" type="xml">
+        <form string="Shipment Type">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="name"/>
+
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- shipment.type tree view -->
+    <record id="shipment_type_view_tree" model="ir.ui.view">
+      <field name="name">shipment.type.view.tree</field>
+      <field name="model">shipment.type</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    
+    <!-- containers.containers form view -->
+    <record id="containers_containers_view_form" model="ir.ui.view">
+      <field name="name">Containers</field>
+      <field name="model">containers.containers</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="name"/>
+              <field name="containers_id_type"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- containers.containers tree view -->
+    <record id="containers_containers_view_tree" model="ir.ui.view">
+      <field name="name">containers.containers.view.tree</field>
+      <field name="model">containers.containers</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="name"/>
+          <field name="containers_id_type"/>
+        </tree>
+      </field>
+    </record>
+    <!-- port.name form view -->
+    <record id="port_name_view_form" model="ir.ui.view">
+      <field name="name">ports</field>
+      <field name="model">port.name</field>
+      <field name="arch" type="xml">
+        <form string="Port Name">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="name"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- port.name tree view -->
+    <record id="port_name_view_tree" model="ir.ui.view">
+      <field name="name">ports</field>
+      <field name="model">port.name</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+
+
+    <!-- containers.type form view -->
+    <record id="containers_type_view_form" model="ir.ui.view">
+      <field name="name">Containers</field>
+      <field name="model">containers.type</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="name"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- containers.type tree view -->
+    <record id="containers_type_view_tree" model="ir.ui.view">
+      <field name="name">containers.type.view.tree</field>
+      <field name="model">containers.type</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+    <!-- sale.order action window -->
+    <record id="sale_order_model_name_action" model="ir.actions.act_window">
+      <field name="name">shipping operation</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">sale.order</field>
+      <field name="view_mode">tree,form</field>
+    </record> 
+
+    <!-- sale.order action window -->
+     <record id="res_partner_inh_model_name_action" model="ir.actions.act_window">
+      <field name="name">Client</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form</field>
+    </record> 
+
+    <!-- shipment.type action window -->
+    <record id="shipment_type_name_action" model="ir.actions.act_window">
+      <field name="name">Shipment Type</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">shipment.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- port.name action window -->
+    <record id="port_name_name_action" model="ir.actions.act_window">
+      <field name="name">Ports</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">port.name</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- containers.type action window -->
+    <record id="containers_type_name_action" model="ir.actions.act_window">
+      <field name="name">Containers Type</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">containers.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- containers.containers action window -->
+    <record id="containers_containers_name_action" model="ir.actions.act_window">
+      <field name="name">Containers Containers</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">containers.containers</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item will appear in the Upper bar, that's why It needs NO parent or action -->
+    <menuitem id="shipping_menu_root" name="shipping" web_icon="shipping,static/description/icon.png"/>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="shipping_system_menu_categ" name="shipping system" parent="shipping_menu_root"/>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="shipping_process_menu_act" name="Shipping Process" parent="shipping_system_menu_categ" action="sale_order_model_name_action"/>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="client_menu_act" name="Client" parent="shipping_system_menu_categ" action="res_partner_inh_model_name_action"/>
+    
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="service_menu_act" name="service" parent="shipping_system_menu_categ" action="stock.product_template_action_product"/>
+
+
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="configration_menu_categ" name="Containers Congigration" parent="shipping_menu_root"/>
+
+    <!-- containers.containers This Menu Item must have a parent and an action -->
+    <menuitem id="Containers_info_menu_act" name="Containers Data" parent="configration_menu_categ" action="containers_containers_name_action"/>
+
+    <!-- containers.type This Menu Item must have a parent and an action -->
+    <menuitem id="containers_type_menu_act" name="Containers Type" parent="configration_menu_categ" action="containers_type_name_action"/>
+
+    <!-- shipment.type This Menu Item must have a parent and an action -->
+    <menuitem id="shipment_type_menu_act" name="Shipment Type" parent="configration_menu_categ" action="shipment_type_name_action"/>
+
+    <!-- port.name This Menu Item must have a parent and an action -->
+    <menuitem id="port_name_menu_act" name="Port Name" parent="configration_menu_categ" action="port_name_name_action"/>
+
+
+                     <!-- <button  class="oe_stat_button" name="attachment_tree_view" type="object" icon="fa-files-o">
+                            <field string="Documents" name="doc_count" widget="statinfo"/>
+                        </button>-->
+  </data>
+</odoo>
